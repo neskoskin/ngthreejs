@@ -1,0 +1,16 @@
+<div class="container">
+  <form [formGroup]="rForm" (ngSubmit)="addPost(rForm.value)">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" class="form-control" formControlName="username" placeholder="Enter username">
+      <small class="form-text text-muted" *ngIf="!rForm.controls['username'].valid && rForm.controls['username'].touched">{{ usernameAlert }}</small>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="text" class="form-control" formControlName="password" placeholder="Enter password">
+      <small class="form-text text-muted" *ngIf="!rForm.controls['password'].valid && rForm.controls['password'].touched">{{ passwordAlert }}</small>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!rForm.valid">Submit</button>
+    <small class="form-text text-muted" *ngIf="loginError">{{ loginAlert }}</small>
+  </form>
+</div>
