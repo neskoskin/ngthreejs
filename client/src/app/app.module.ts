@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { AuthguardService } from './service/authguard.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { Video360Component } from './video360/video360.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -20,6 +21,7 @@ const appRoutes: Routes = [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: 'image360', component: SceneComponent, canActivate: [AuthguardService], },
       { path: 'image2d', component: Image2dComponent, canActivate: [AuthguardService], },
+      { path: 'video360', component: Video360Component, canActivate: [AuthguardService], },
     ]
   },
   // otherwise redirect to home
@@ -33,7 +35,8 @@ const appRoutes: Routes = [
     SceneComponent,
     Image2dComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    Video360Component
   ],
   imports: [
     BrowserModule,
