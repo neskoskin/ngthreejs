@@ -1,9 +1,8 @@
 import { AfterViewInit, Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
-import * as THREE from 'three';
-import * as A from 'three/examples/js/renderers/CSS3DRenderer.js';
+// import * as THREE from 'three';
 import * as OBJLoader from 'three-obj-loader';
+// import 'three/examples/js/renderers/CSS3DRenderer.js';
 OBJLoader(THREE);
-console.log(A);
 
 @Component({
   selector: 'app-video360',
@@ -15,6 +14,7 @@ export class Video360Component implements AfterViewInit {
   theta: number = 0;
   phi: number = 0;
   renderer: any;
+  renderercss: any;
   distance: number = 50;
   private camera: any;
   private scene: any;
@@ -67,14 +67,28 @@ export class Video360Component implements AfterViewInit {
 
     var element = document.createElement('img');
     element.src = '/assets/2DImage.png';
+    element.className = 'image-2d';
+    //CSS3D renderer
+    this.renderercss = new THREE.CSS3DRenderer();
+    this.renderercss.setSize(window.innerWidth, window.innerHeight);
+    this.renderercss.domElement.style.position = 'absolute';
+    this.renderercss.domElement.style.top = 0;
     // create the object3d for this element
-    console.log(THREE.CSS3DObject);
-    var cssObject = new THREE.CSS3Object(element);
-    // we reference the same position and rotation
-    cssObject.position = mesh.position;
-    cssObject.rotation = mesh.rotation;
-    // add it to the css scene
-    this.scene.add(cssObject);
+    // console.log(THREE.CSS3DObject);
+    // var cssObject = new THREE.CSS3DObject(element);
+    // // we reference the same position and rotation
+    // cssObject.position = mesh.position;
+    // cssObject.rotation = mesh.rotation;
+    // // add it to the css scene
+    // this.scene.add(cssObject);
+    container.appendChild(this.renderercss.domElement);
+    var element3d = new THREE.CSS3DObject(element);
+    element3d.position.x = 50;
+    element3d.position.y = 50;
+    element3d.position.z = -1000;
+    this.scene.add(element3d);
+    this.renderercss.render(this.scene, this.camera);
+    this.renderer.render(this.scene, this.camera);
     // document.addEventListener('mousedown', () => this.onDocumentMouseDown, false);
     // document.addEventListener('mousemove', () => this.onDocumentMouseMove, false);
     // document.addEventListener('mouseup', () => this.onDocumentMouseUp, false);
